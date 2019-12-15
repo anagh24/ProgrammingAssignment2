@@ -29,23 +29,25 @@ cacheSolve <- function(x, ...) {
   
   inverse <- x$getinverse()
   
-  ## if the inverse is not known then it is calculated.
-  if (is.null(inverse)){
-    
-    data <- x$get()
-    
-    inverse <- solve(data, ...)
-    
-    x$setinverse(inverse)
-    
-    return(inverse)
-    
-  } 
-    
-    
+  
   ## if the inverse has already been calculated
-  message("getting cached data")
-  return(inverse)  
+  if (!is.null(inverse)){
+    
+    message("getting cached data")
+    return(inverse) 
+    
+   } 
+    
+    
+  ## if the inverse is not known then it is calculated.
+  
+  data <- x$get()
+  
+  inverse <- solve(data, ...)
+  
+  x$setinverse(inverse)
+  
+  return(inverse) 
     
 }    
    
